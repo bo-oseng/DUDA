@@ -7,11 +7,11 @@ DUDA discovers emerging degradations in unlabeled image streams and uses the
 discovered structure to guide restoration, adapting to unknown and mixed
 degradations without paired clean targets for the incoming data.
 
-[[Problem setting](#problem-setting)]
-[[Method](#method)]
-[[Installation](#installation)]
-[[Training](#training)]
-[[Evaluation](#evaluation)]
+[[Project page]()]
+[[Live demo]()]
+[[Paper]()]
+[[CCDD-11 dataset]()]
+[[Pretrained models]()]
 
 ## Problem setting
 
