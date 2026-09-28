@@ -10,7 +10,6 @@ degradations without paired clean targets for the incoming data.
 [[Project page]()]
 [[Live demo]()]
 [[Paper]()]
-[[CCDD-11 dataset]()]
 [[Pretrained models]()]
 
 ## Problem setting
