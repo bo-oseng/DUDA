@@ -1,0 +1,75 @@
+deg_map:
+  clear: 0
+  OTS: 1
+  Outdoor_Rain: 2
+  RainDrop: 3
+  SPA: 4
+  Snow100k: 5
+  RainReal: 6
+  SnowReal: 7
+  UnannotatedHazyImages: 8
+incremental:
+  stage: 0
+  inc_class_num: 3
+  base_class_num: 6
+cgcd:
+  arch: adain
+  model_dim: 400
+  embd_dim: 324
+  nclasses: 9
+  model_name: dinov3_vitl16
+  pca_path: ${CGCD_DIR}/pca_model.pkl
+  scaler_path: ${CGCD_DIR}/scaler_model.pkl
+  class_mappings: ${CGCD_DIR}/class_mappings.json
+  saved_vcgcd_models_dir: ${CGCD_DIR}
+  dino_checkpoint: ${DINO_ADAPTER_DIR}
+  class_order: ${FEATURE_DIR}/class_order.txt
+model:
+  arch: onerestore
+  width: 32
+train:
+  batch_size: 128
+  num_workers: 16
+  epochs: 500
+  patch_size: 224
+  optimizer: adamw
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  scheduler: cosine
+  warmup_epochs: 0
+  l1_weight: 1.0
+  ce_weight: 0.05
+  msssim_weight: 0.3
+  contrast_weight: 0.1
+  use_bf16: true
+  data_root_train: ${DATA_ROOT}/syn_train_dataset
+  data_root_val: ${DATA_ROOT}/syn_train_dataset
+  input_subdir: input
+  gt_subdir: gt
+  all_classes:
+  - OTS
+  - Outdoor_Rain
+  - RainDrop
+  - SPA
+  - Snow100k
+  use_class_balanced_sampler: true
+  max_samples_per_class: 9000
+  use_validation: false
+  val_freq: 100
+  use_real_eval: true
+  real_eval_precheck_before_train: true
+  real_eval_root: ${DATA_ROOT}/real_eval_dataset
+  real_eval_sets:
+  - RealRain_2320
+  - RTTS
+  - Snow100K_R
+  real_eval_freq: 100
+  real_eval_timeout_seconds: 3600
+  real_eval_max_side: 0
+  real_eval_num_workers: 0
+  save_dir: ${OUTPUT_ROOT}/checkpoints
+  save_freq: 10
+  resume: null
+  log_dir: ${OUTPUT_ROOT}/tensorboard
+  print_freq: 10
+  seed: 42
