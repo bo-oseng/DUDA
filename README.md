@@ -7,7 +7,7 @@ DUDA discovers emerging degradations in unlabeled image streams and uses the
 discovered structure to guide restoration, adapting to unknown and mixed
 degradations without paired clean targets for the incoming data.
 
-[[Project page]()]
+[[Project page](https://bo-oseng.github.io/DUDA/)]
 [[Live demo]()]
 [[Paper]()]
 [[Pretrained models]()]

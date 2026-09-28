@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DUDA — Open-World Image Restoration</title>
+  <meta name="description" content="Discovering Unseen Degradations to Adapt Open-World Image Restoration. Official NeurIPS 2026 project page.">
+  <meta name="theme-color" content="#75618e">
+  <meta property="og:title" content="DUDA — Discover unseen degradations. Adapt to the open world.">
+  <meta property="og:description" content="Discovery-guided image restoration from unlabeled, unpaired streams. NeurIPS 2026.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bo-oseng.github.io/DUDA/">
+  <meta property="og:image" content="https://bo-oseng.github.io/DUDA/static/images/problem-setting.png">
+  <link rel="canonical" href="https://bo-oseng.github.io/DUDA/">
+  <link rel="icon" href="static/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/index.css">
+  <script defer src="static/js/index.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav" aria-label="Main navigation"><div class="nav-inner">
+  <a class="brand" href="#top"><span class="brand-symbol" aria-hidden="true">✣</span> DUDA<span class="brand-note"> / NeurIPS 2026</span></a>
+  <div class="nav-links"><a href="#setting">Setting</a><a href="#method">Method</a><a href="#results">Results</a><a href="#analysis">Analysis</a></div>
+  <a class="nav-code" href="https://github.com/bo-oseng/DUDA">Code <span aria-hidden="true">↗</span></a>
+</div></nav>
+<main id="main">
+<header id="top" class="hero">
+  <div class="hero-orbit orbit-one" aria-hidden="true"></div><div class="hero-orbit orbit-two" aria-hidden="true"></div>
+  <div class="shell hero-inner">
+    <div class="venue"><span></span> NeurIPS 2026</div>
+    <p class="hero-acronym">DUDA<span class="acronym-dot">.</span></p>
+    <h1>Discovering Unseen Degradations<br class="desktop"> to Adapt Open-World Image Restoration</h1>
+    <p class="hero-tagline">Discover the unknown.<br><span>Restore beyond the familiar.</span></p>
+    <p class="hero-description">A continual restoration framework that discovers emerging degradations<br class="desktop"> and learns from real images without paired clean targets.</p>
+    <div class="resources" aria-label="Project resources">
+      <a class="button primary" href="https://github.com/bo-oseng/DUDA"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 6-6 6 6 6m8-12 6 6-6 6m-3-14-2 16"/></svg>Code <span aria-hidden="true">↗</span></a>
+      <span class="button unavailable">Paper <small>Coming soon</small></span>
+      <span class="button unavailable">Models <small>Coming soon</small></span>
+      <span class="button unavailable">Demo <small>Coming soon</small></span>
+    </div>
+    <div class="hero-footer"><span>UNKNOWN DEGRADATIONS</span><i></i><span>UNPAIRED STREAMS</span><i></i><span>CONTINUAL ADAPTATION</span></div>
+  </div>
+</header>
+<section id="setting" class="section setting-section">
+  <div class="shell">
+    <div class="section-head"><div><p class="eyebrow"><span>01</span> THE PROBLEM SETTING</p><h2>The world doesn’t come<br>with degradation labels.</h2></div><p>Real images arrive with unknown, mixed, and changing corruptions. Can a restoration model discover what has changed—and adapt?</p></div>
+    <figure class="figure-card"><a class="figure-link" href="static/images/problem-setting.png" data-enlarge="Problem setting" aria-label="Enlarge the problem-setting figure"><img src="static/images/problem-setting.png" alt="Comparison of closed-set restoration, continual and semi-supervised restoration, and DUDA's open-world continual restoration" width="5048" height="1610"><span class="expand">View full size ↗</span></a><figcaption><span>THE SHIFT</span> From predefined tasks to discovering and restoring unknown degradations in unlabeled streams.</figcaption></figure>
+    <div class="setting-grid">
+      <article><span class="small-index">01 / DISCOVER</span><h3>Unknown & mixed</h3><p>New degradation patterns need not fit the categories defined during initial training.</p></article>
+      <article><span class="small-index">02 / ADAPT</span><h3>Unlabeled & unpaired</h3><p>Incoming real images provide neither degradation annotations nor clean reference targets.</p></article>
+      <article><span class="small-index">03 / REBALANCE</span><h3>Beyond the base distribution</h3><p>Adaptation must account for composition bias inherited from the original degradation mix.</p></article>
+    </div>
+    <div class="protocol-note"><span class="note-mark">↳</span><p><strong>The starting point:</strong> supervised pretraining on paired, known degradations. <strong>The new challenge:</strong> adaptation to unlabeled, unpaired real-world data.</p></div>
+  </div>
+</section>
+<section class="section brief-section">
+  <div class="shell brief-grid"><div><p class="eyebrow">THE IDEA</p><h2>Let discovery<br>guide restoration.</h2></div><div><p class="lead">DUDA turns discovered degradation structure into two useful signals: <strong>how to condition restoration</strong> and <strong>which pseudo-targets to trust.</strong></p><p>Continual category discovery expands the degradation space. An instance-aware descriptor guides the restorer, while a discovery-adaptive score helps select reliable targets for mean-teacher learning.</p><details><summary>Read the abstract <span aria-hidden="true">＋</span></summary><p>While all-in-one image restoration models excel in controlled, closed-set environments, they face critical limitations when deployed in open-world settings where paired supervision is unavailable and degradations are unknown and often intricately mixed. To address this challenge, we propose a continual restoration framework that integrates degradation discovery with adaptive restoration. Building on a model pre-trained on known degradation categories, our method identifies unseen degradations by measuring deviations in feature space via Mahalanobis distance and performs continual category discovery to expand the degradation space. Based on this, we introduce a discovery- and instance-conditioned descriptor that combines degradation-aware representations derived from cluster prototypes with instance-specific features, enabling adaptive conditioning for mixed and ambiguous degradations. To further handle unpaired data, we adopt a mean-teacher-based semi-supervised framework with a reliable bank for pseudo-target refinement. Crucially, we propose a discovery-adaptive score that evaluates candidate targets based on their relative proximity to degradation clusters and an anchored clear cluster, enabling degradation-aware pseudo-target selection beyond conventional no-reference image quality assessment metrics. Experiments on both controlled open-world protocols and real-world adverse weather datasets demonstrate that our approach consistently outperforms existing methods across multiple image quality metrics while improving robustness to degradation composition shifts.</p></details></div></div>
+</section>
+<section id="method" class="section">
+  <div class="shell">
+    <div class="section-head"><div><p class="eyebrow"><span>02</span> THE FRAMEWORK</p><h2>Discover. Condition. Refine.</h2></div><p>Two proposed components connect category discovery to pixel-level restoration within a mean-teacher pipeline.</p></div>
+    <figure class="figure-card method-figure"><a class="figure-link" href="static/images/method.png" data-enlarge="DUDA framework" aria-label="Enlarge the DUDA framework figure"><img src="static/images/method.png" alt="DUDA framework combining the discovery- and instance-conditioned descriptor, mean-teacher pipeline, and discovery-adaptive score" width="4976" height="2337" loading="lazy"><span class="expand">View full size ↗</span></a><figcaption><span>DUDA OVERVIEW</span> Cluster statistics guide both restoration conditioning and reliable pseudo-target selection.</figcaption></figure>
+    <div class="method-explorer">
+      <div class="method-tabs" role="tablist" aria-label="Explore the framework">
+        <button id="tab-descriptor" role="tab" aria-selected="true" aria-controls="panel-descriptor" data-tab="descriptor"><span>01</span> Instance-aware descriptor <small>CONDITION</small></button>
+        <button id="tab-teacher" role="tab" aria-selected="false" aria-controls="panel-teacher" data-tab="teacher" tabindex="-1"><span>02</span> Mean-teacher adaptation <small>LEARN</small></button>
+        <button id="tab-score" role="tab" aria-selected="false" aria-controls="panel-score" data-tab="score" tabindex="-1"><span>03</span> Discovery-adaptive score <small>REFINE</small></button>
+      </div>
+      <div id="panel-descriptor" class="method-panel" role="tabpanel" aria-labelledby="tab-descriptor" tabindex="0"><span class="panel-label">FIGURE (a) · PROPOSED COMPONENT</span><h3>Structure of the cluster.<br>Specifics of the instance.</h3><p>Soft assignments combine embeddings initialized from known and discovered cluster prototypes. Covariance-normalized residuals add the characteristics of each individual image.</p><div class="flow"><span>Cluster structure</span><b>＋</b><span>Instance residual</span><b>→</b><strong>Descriptor</strong></div></div>
+      <div id="panel-teacher" class="method-panel" role="tabpanel" aria-labelledby="tab-teacher" tabindex="0" hidden><span class="panel-label">FIGURE (b) · ADAPTATION PIPELINE</span><h3>Learn from targets<br>that earn their place.</h3><p>An exponential moving average teacher generates restoration candidates. A reliable bank retains selected pseudo-targets, and the student learns jointly from these targets and paired base data.</p><div class="flow"><span>EMA teacher</span><b>→</b><span>Reliable bank</span><b>→</b><strong>Student</strong></div></div>
+      <div id="panel-score" class="method-panel" role="tabpanel" aria-labelledby="tab-score" tabindex="0" hidden><span class="panel-label">FIGURE (c) · PROPOSED COMPONENT</span><h3>Judge quality with<br>degradation awareness.</h3><p>Relative Mahalanobis distances to an anchored clear cluster and the nearest degradation cluster complement no-reference image quality assessment when refining pseudo-targets.</p><div class="score-formula" aria-label="Discovery-adaptive score equals distance to the nearest degradation cluster divided by the sum of that distance and distance to the clear cluster"><i>S<sub>DA</sub></i><span>=</span><span class="fraction"><span>d̂<sub>neg</sub></span><span>d̂<sub>neg</sub> + d<sub>clear</sub></span></span></div></div>
+    </div>
+  </div>
+</section>
+<section id="results" class="section results-section">
+  <div class="shell">
+    <div class="section-head"><div><p class="eyebrow"><span>03</span> REAL-WORLD RESULTS</p><h2>Adapt without<br>degradation labels.</h2></div><p>Evaluation on real rain, haze, and snow. DUDA improves over its zero-shot initialization across all four overall quality metrics.</p></div>
+    <div class="metric-grid">
+      <article><span>MUSIQ ↑</span><strong>58.79</strong><p><b>+2.12</b> vs. zero-shot</p></article>
+      <article><span>CLIP-IQA ↑</span><strong>0.494</strong><p><b>+0.026</b> vs. zero-shot</p></article>
+      <article><span>LIQE ↑</span><strong>2.702</strong><p><b>+0.107</b> vs. zero-shot</p></article>
+      <article><span>Q-Align ↑</span><strong>3.593</strong><p><b>+0.081</b> vs. zero-shot</p></article>
+    </div>
+    <div class="results-card">
+      <div class="table-toolbar"><div><h3>Across real-world conditions</h3><p>Reported results from Table 1 · higher is better</p></div><div class="dataset-buttons" role="group" aria-label="Select evaluation dataset"><button aria-pressed="true" data-dataset="overall">Overall</button><button aria-pressed="false" data-dataset="rain">Rain</button><button aria-pressed="false" data-dataset="haze">Haze</button><button aria-pressed="false" data-dataset="snow">Snow</button></div></div>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Restoration benchmark results"><table><caption id="results-caption">Overall — mean across the three evaluation sets</caption><thead><tr><th scope="col">Method</th><th scope="col">Adaptation setting</th><th scope="col">MUSIQ ↑</th><th scope="col">CLIP-IQA ↑</th><th scope="col">LIQE ↑</th><th scope="col">Q-Align ↑</th></tr></thead><tbody id="results-body">
+        <tr><th scope="row">Restormer</th><td>Zero-shot</td><td>56.38</td><td>0.438</td><td>2.456</td><td>3.503</td></tr>
+        <tr><th scope="row">PromptIR</th><td>Zero-shot</td><td>56.07</td><td>0.443</td><td>2.437</td><td>3.491</td></tr>
+        <tr><th scope="row">DA-CLIP</th><td>Zero-shot</td><td>55.59</td><td>0.412</td><td>2.438</td><td>3.480</td></tr>
+        <tr><th scope="row">DUDA · initialization</th><td>Zero-shot</td><td>56.67</td><td>0.468</td><td>2.595</td><td>3.512</td></tr>
+        <tr><th scope="row">WResVLM</th><td>Non-blind</td><td class="best">59.34</td><td>0.456</td><td>2.640</td><td>3.574</td></tr>
+        <tr class="ours"><th scope="row">DUDA</th><td>Blind</td><td>58.79</td><td class="best">0.494</td><td class="best">2.702</td><td class="best">3.593</td></tr>
+      </tbody></table></div>
+      <div class="table-foot"><p><strong>Blind:</strong> no degradation labels for adaptation. <strong>Non-blind:</strong> degradation categories are available.</p><p>Selected comparisons from the paper. Bold indicates the best value among the displayed methods.</p></div>
+    </div>
+    <p class="section-footnote">All values follow the manuscript’s reported precision. RealRain-2320 / RTTS / Snow100K-R. The metrics assess image quality without paired reference images.</p>
+  </div>
+</section>
+<section id="analysis" class="section">
+  <div class="shell">
+    <div class="section-head"><div><p class="eyebrow"><span>04</span> UNDERSTANDING THE GAINS</p><h2>Two components.<br>Complementary effects.</h2></div><p>Component ablations isolate the contribution of instance-aware conditioning and discovery-guided pseudo-target refinement.</p></div>
+    <div class="ablation-grid">
+      <article class="ablation-card blue"><span class="panel-label">DESCRIPTOR · ZERO-SHOT</span><h3>The instance matters.</h3><p>Adding instance residuals improves restoration over base embeddings alone.</p><div class="bar-row"><span>Base only</span><div class="bar-track"><div style="--bar:86.8%"></div></div><strong>0.434</strong></div><div class="bar-row featured"><span>+ Instance</span><div class="bar-track"><div style="--bar:93.6%"></div></div><strong>0.468</strong></div><div class="ablation-bottom"><strong>+0.034</strong><span>CLIP-IQA<br>Table 2 · zero-based bars</span></div></article>
+      <article class="ablation-card purple"><span class="panel-label">ADAPTIVE SCORE · BLIND ADAPTATION</span><h3>Discovery refines trust.</h3><p>The discovery-adaptive score improves on refinement without this scoring component.</p><div class="bar-row"><span>Without S<sub>DA</sub></span><div class="bar-track"><div style="--bar:89.6%"></div></div><strong>58.24</strong></div><div class="bar-row featured"><span>With S<sub>DA</sub></span><div class="bar-track"><div style="--bar:90.45%"></div></div><strong>58.79</strong></div><div class="ablation-bottom"><strong>+0.55</strong><span>MUSIQ<br>Table 2 · zero-based bars</span></div></article>
+    </div>
+    <div class="bias-card"><div><span class="panel-label">COMPOSITION BIAS · TABLE 4</span><h3>A more reliable path<br>toward the clear image.</h3><p>The discovery-adaptive score reduces color error under balanced, low-light-biased, and haze-biased training distributions.</p><span class="bias-label">CIEDE2000 ↓ · lower is better</span></div><div class="bias-values"><div><span>Balanced</span><p>10.81 <i>→</i> <strong>9.87</strong></p></div><div><span>Low-light biased</span><p>11.75 <i>→</i> <strong>10.71</strong></p></div><div><span>Haze biased</span><p>9.53 <i>→</i> <strong>8.73</strong></p></div><small>Without discovery-adaptive score → With score</small></div></div>
+  </div>
+</section>
+<section id="resources" class="section resources-section"><div class="shell resource-grid"><div><p class="eyebrow"><span>05</span> EXPLORE DUDA</p><h2>From discovery<br>to your next experiment.</h2><p>The official implementation includes feature learning, category discovery, restoration training, and evaluation.</p><a class="button primary" href="https://github.com/bo-oseng/DUDA">Explore the code <span aria-hidden="true">↗</span></a></div><div class="resource-list"><a href="https://github.com/bo-oseng/DUDA#installation"><span><strong>Get started</strong><small>Environment and dependencies</small></span><b>↗</b></a><a href="https://github.com/bo-oseng/DUDA#training"><span><strong>Reproduce the pipeline</strong><small>Discovery, initialization, and adaptation</small></span><b>↗</b></a><div><span><strong>Paper & citation</strong><small>Publication links and citation details coming soon</small></span><span class="pending">Soon</span></div><div><span><strong>Pretrained models & demo</strong><small>Release links coming soon</small></span><span class="pending">Soon</span></div></div></div></section>
+</main>
+<footer><div class="shell"><a class="brand" href="#top">✣ DUDA</a><p>Discovering Unseen Degradations to Adapt Open-World Image Restoration</p><span>NeurIPS 2026</span></div><p class="credit">Page design adapted from <a href="https://bo-oseng.github.io/CURE/">CURE</a>.</p></footer>
+<dialog id="figure-dialog" aria-labelledby="dialog-title"><div class="dialog-header"><h2 id="dialog-title">Figure</h2><button id="close-dialog" aria-label="Close enlarged figure">Close ×</button></div><div class="dialog-scroll"><img id="dialog-image" alt=""></div><p>Scroll to inspect the full figure. Press Esc to close.</p></dialog>
+</body>
+</html>
