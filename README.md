@@ -14,7 +14,7 @@ DUDA discovers emerging degradations in unlabeled image streams and uses the dis
 
 **Open-world continual image restoration.** Starting from a model trained on known degradations, the goal is to continually restore incoming images whose degradations may be unknown, mixed, and changing over time. These streams provide neither degradation labels nor paired clean targets. The model must discover emerging degradation patterns and use that knowledge to adapt its restoration behavior.
 
-![Comparison of closed-set, continual and semi-supervised, and open-world continual image restoration](duda_teaser_ver3.png)
+![Comparison of closed-set, continual and semi-supervised, and open-world continual image restoration](images/duda_teaser.png)
 
 *From predefined restoration tasks to unlabeled open-world streams: DUDA couples novel degradation discovery with adaptive restoration.*
 
@@ -22,7 +22,7 @@ The setting brings together three challenges: discovering **unknown and mixed de
 
 ## Method
 
-![DUDA framework: discovery- and instance-conditioned descriptor, mean-teacher pipeline, and discovery-adaptive score](duda_method_overall.png)
+![DUDA framework: discovery- and instance-conditioned descriptor, mean-teacher pipeline, and discovery-adaptive score](images/duda_method_overall.png)
 
 DUDA connects continual category discovery to image restoration through two proposed components, integrated into a mean-teacher adaptation pipeline:
 
