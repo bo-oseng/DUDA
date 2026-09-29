@@ -1,11 +1,9 @@
 # DUDA
 
-Official PyTorch implementation of **Discovering Unseen Degradations to Adapt
-Open-World Image Restoration** (**NeurIPS 2026**).
 
-DUDA discovers emerging degradations in unlabeled image streams and uses the
-discovered structure to guide restoration, adapting to unknown and mixed
-degradations without paired clean targets for the incoming data.
+Official PyTorch implementation of **Discovering Unseen Degradations to Adapt Open-World Image Restoration** (**NeurIPS 2026**).
+
+DUDA discovers emerging degradations in unlabeled image streams and uses the discovered structure to guide restoration, adapting to unknown and mixed degradations without paired clean targets for the incoming data.
 
 [[Project page](https://bo-oseng.github.io/DUDA/)]
 [[Live demo]()]
@@ -14,29 +12,19 @@ degradations without paired clean targets for the incoming data.
 
 ## Problem setting
 
-**Open-world continual image restoration.** Starting from a model trained on
-known degradations, the goal is to continually restore incoming images whose
-degradations may be unknown, mixed, and changing over time. These streams
-provide neither degradation labels nor paired clean targets. The model must
-discover emerging degradation patterns and use that knowledge to adapt its
-restoration behavior.
+**Open-world continual image restoration.** Starting from a model trained on known degradations, the goal is to continually restore incoming images whose degradations may be unknown, mixed, and changing over time. These streams provide neither degradation labels nor paired clean targets. The model must discover emerging degradation patterns and use that knowledge to adapt its restoration behavior.
 
 ![Comparison of closed-set, continual and semi-supervised, and open-world continual image restoration](duda_teaser_ver3.png)
 
-*From predefined restoration tasks to unlabeled open-world streams: DUDA couples
-novel degradation discovery with adaptive restoration.*
+*From predefined restoration tasks to unlabeled open-world streams: DUDA couples novel degradation discovery with adaptive restoration.*
 
-The setting brings together three challenges: discovering **unknown and mixed
-degradations**, learning from **unpaired real-world images**, and mitigating
-**degradation composition bias**, where adaptation remains biased toward the
-base degradation distribution.
+The setting brings together three challenges: discovering **unknown and mixed degradations**, learning from **unpaired real-world images**, and mitigating **degradation composition bias**, where adaptation remains biased toward the base degradation distribution.
 
 ## Method
 
 ![DUDA framework: discovery- and instance-conditioned descriptor, mean-teacher pipeline, and discovery-adaptive score](duda_method_overall.png)
 
-DUDA connects continual category discovery to image restoration through two
-proposed components, integrated into a mean-teacher adaptation pipeline:
+DUDA connects continual category discovery to image restoration through two proposed components, integrated into a mean-teacher adaptation pipeline:
 
 - **Discovery- and instance-conditioned descriptor.** Soft assignments over
   known and discovered degradation clusters combine prototype-initialized
@@ -85,7 +73,7 @@ python scripts/link_assets.py \
   --dino-base /path/to/dinov3-vitl16 \
   --dino-adapter /path/to/dinov3-vitl16-sl/checkpoint \
   --cgcd /path/to/cgcd/saved_models \
-  --stage0 /path/to/stage0_epoch500.pth \
+  --stage0 /path/to/stage0_latest.pth \
   --adapted /path/to/semi_supervised_epoch10.pth
 ```
 
@@ -111,7 +99,7 @@ PCA model, scaler, class mapping, and stage Gaussian parameter files.
 | --- | --- |
 | DINOv3 base model and learned adapter | Degradation feature extraction |
 | Feature files and CGCD parameters | Category discovery and restoration conditioning |
-| `stage0_epoch500.pth` | Supervised initialization for adaptation |
+| `stage0_latest.pth` | Supervised initialization for adaptation |
 | `semi_supervised_epoch10.pth` | Adapted checkpoint for teacher evaluation |
 
 ## Training
@@ -150,7 +138,7 @@ The training configuration is defined in [`configs/supervised.yml`](configs/supe
 
 ### 3. Open-world adaptation
 
-Starting from the supervised checkpoint linked as `assets/checkpoints/stage0_epoch500.pth`,
+Starting from the supervised checkpoint linked as `assets/checkpoints/stage0_latest.pth`,
 run semi-supervised adaptation for 10 epochs:
 
 ```bash
