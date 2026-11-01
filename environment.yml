@@ -1,0 +1,9 @@
+name: duda
+channels:
+  - nvidia/label/cuda-12.1.1
+  - defaults
+dependencies:
+  - python=3.11
+  - pip
+  - cuda-toolkit=12.1.1
+  - cuda-nvcc=12.1.105

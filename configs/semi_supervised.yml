@@ -1,0 +1,58 @@
+# Semi-supervised adaptation (Table 1): 6 known + 3 discovered degradation classes.
+
+deg_map:  # class name -> index used by VB-CGCD
+  clear: 0
+  OTS: 1
+  Outdoor_Rain: 2
+  RainDrop: 3
+  SPA: 4
+  Snow100k: 5
+  RainReal: 6
+  SnowReal: 7
+  UnannotatedHazyImages: 8
+incremental:
+  stage: 1           # VB-CGCD stage of the discovered clusters
+  base_class_num: 6  # known classes (first entries of class_order)
+  inc_class_num: 3   # discovered classes
+discovery:
+  dino_model: dinov3_vitl16
+  dino_checkpoint: ${DINO_ADAPTER_DIR}
+  dino_num_classes: 9
+  cluster_dir: ${CGCD_DIR}
+  pca_path: ${CGCD_DIR}/pca_model.pkl
+  scaler_path: ${CGCD_DIR}/scaler_model.pkl
+  class_mappings: ${CGCD_DIR}/class_mappings.json
+  class_order: ${FEATURE_DIR}/class_order.txt
+  descriptor_dim: 324
+model:
+  width: 32
+train:
+  seed: 42
+  epochs: 10
+  batch_size: 56  # per GPU, for both the paired and the unpaired batch
+  num_workers: 8
+  prefetch_factor: 2
+  patch_size: 224
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  use_bf16: false
+  perceptual_weight: 0.3   # lambda_per
+  ce_weight: 0.01          # lambda_ce
+  consistency_weight: 0.2  # final omega_u
+  rampup_epoch: 5.0        # sigmoid ramp-up of omega_u
+  ema_alpha: 0.996
+  stage0_checkpoint: ${STAGE0_CHECKPOINT}
+  data_root_train: ${DATA_ROOT}/syn_train_dataset
+  input_subdir: input
+  gt_subdir: gt
+  all_classes: [OTS, Outdoor_Rain, RainDrop, SPA, Snow100k]
+  unpaired_patches_dir: ${DATA_ROOT}/real_train_patches
+  reliable_bank_dir: ${OUTPUT_ROOT}/reliable_bank/${EXP_NAME}
+  real_eval_root: ${DATA_ROOT}/real_eval_dataset
+  real_eval_step_root: ${DATA_ROOT}/real_eval_small_dataset
+  real_eval_sets: [RealRain_2320, RTTS, Snow100K_R]
+  real_eval_freq_steps: 200
+  save_freq_steps: 200
+  bank_log_freq_steps: 200
+  save_dir: ${OUTPUT_ROOT}/checkpoints
+  log_dir: ${OUTPUT_ROOT}/tensorboard

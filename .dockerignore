@@ -1,0 +1,14 @@
+.git
+assets
+outputs
+datasets/wres_datasets
+.venv*
+**/__pycache__
+**/*.py[cod]
+.pytest_cache
+.env
+.env.*
+*.pth
+*.pt
+*.safetensors
+*.tar*

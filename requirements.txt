@@ -1,0 +1,24 @@
+# Install PyTorch separately as described in README.md.
+numpy==1.26.4
+scipy
+scikit-learn==1.5.2
+continuum==1.2.7
+jax==0.4.34
+jaxlib==0.4.34
+numpyro==0.15.3
+optax==0.2.3
+chex==0.1.90
+transformers==4.56.0
+peft==0.12.0
+ninja==1.11.1.1
+# PyIQA is installed separately with --no-deps; see README.md.
+-r requirements-iqa-runtime.txt
+einops==0.8.2
+opencv-python-headless<4.12
+# JPEG decoding differs across Pillow builds; 11.3.0 wheels bundle libjpeg-turbo as in the paper runs.
+Pillow==11.3.0
+PyYAML
+safetensors
+huggingface-hub
+tensorboard
+tqdm

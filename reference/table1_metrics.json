@@ -1,0 +1,33 @@
+{
+  "source": "Table 1 of the paper (reported precision)",
+  "model": "DUDA, adapted teacher (epoch 10, step 14,470)",
+  "per_set": {
+    "RealRain_2320": {
+      "count": 2320,
+      "musiq": 56.15,
+      "clipiqa": 0.474,
+      "liqe": 2.586,
+      "qalign": 3.804
+    },
+    "RTTS": {
+      "count": 4322,
+      "musiq": 58.09,
+      "clipiqa": 0.452,
+      "liqe": 2.243,
+      "qalign": 3.254
+    },
+    "Snow100K_R": {
+      "count": 1329,
+      "musiq": 62.14,
+      "clipiqa": 0.556,
+      "liqe": 3.278,
+      "qalign": 3.722
+    }
+  },
+  "average": {
+    "musiq": 58.79,
+    "clipiqa": 0.494,
+    "liqe": 2.702,
+    "qalign": 3.593
+  }
+}

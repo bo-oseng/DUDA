@@ -1,0 +1,24 @@
+# Runtime dependencies of PyIQA 0.1.14.1 used by MUSIQ, CLIP-IQA and LIQE.
+# Its Transformers 4.37.2 pin is for Q-Align, which runs in a separate environment.
+# Install the PyIQA package itself with: pip install --no-deps pyiqa==0.1.14.1
+accelerate==1.1.0
+addict
+bitsandbytes==0.43.3; sys_platform != "darwin"
+datasets==3.2.0
+pyarrow==23.0.0
+facexlib==0.3.0
+future
+icecream
+lmdb
+openai-clip==1.0.1
+pandas<3
+pre-commit
+pytest
+ruff
+scikit-image
+sentencepiece
+timm==1.0.25
+yapf
+
+# OpenAI CLIP imports pkg_resources.packaging.
+setuptools==73.0.1

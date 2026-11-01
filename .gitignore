@@ -1,0 +1,15 @@
+assets/
+outputs/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv*/
+*.pth
+*.pt
+*.npy
+*.npz
+*.safetensors
+*.pdf
+
+# Local or downloaded WRES image data (including a symlink).
+datasets/wres_datasets

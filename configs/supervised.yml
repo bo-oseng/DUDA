@@ -1,0 +1,50 @@
+# Supervised initialization on paired data of the known degradation classes.
+
+deg_map:  # class name -> index used by VB-CGCD
+  clear: 0
+  OTS: 1
+  Outdoor_Rain: 2
+  RainDrop: 3
+  SPA: 4
+  Snow100k: 5
+  RainReal: 6
+  SnowReal: 7
+  UnannotatedHazyImages: 8
+incremental:
+  stage: 0
+  base_class_num: 6
+  inc_class_num: 3
+discovery:
+  dino_model: dinov3_vitl16
+  dino_checkpoint: ${DINO_ADAPTER_DIR}
+  dino_num_classes: 9
+  cluster_dir: ${CGCD_DIR}
+  pca_path: ${CGCD_DIR}/pca_model.pkl
+  class_mappings: ${CGCD_DIR}/class_mappings.json
+  class_order: ${FEATURE_DIR}/class_order.txt
+  descriptor_dim: 324
+model:
+  width: 32
+train:
+  seed: 42
+  epochs: 500
+  batch_size: 128  # per GPU
+  num_workers: 16
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  use_bf16: true
+  l1_weight: 1.0
+  max_samples_per_class: 9000  # then class-balanced sampling
+  data_root_train: ${DATA_ROOT}/syn_train_dataset
+  input_subdir: input
+  gt_subdir: gt
+  all_classes: [OTS, Outdoor_Rain, RainDrop, SPA, Snow100k]
+  real_eval_root: ${DATA_ROOT}/real_eval_dataset
+  real_eval_sets: [RealRain_2320, RTTS, Snow100K_R]
+  real_eval_freq: 100
+  real_eval_timeout_seconds: 3600
+  save_freq: 10
+  print_freq: 10
+  resume: null
+  save_dir: ${OUTPUT_ROOT}/checkpoints
+  log_dir: ${OUTPUT_ROOT}/tensorboard
