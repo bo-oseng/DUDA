@@ -1,6 +1,6 @@
 # DUDA
 
-Official PyTorch implementation of **Discovering Unseen Degradations to Adapt Semi-Supervised Image Restoration** (**NeurIPS 2026**).
+Official PyTorch implementation of **DUDA: Discovering Unseen Degradations to Adapt Open-World Image Restoration** (**NeurIPS 2026**).
 
 [[Project page](https://bo-oseng.github.io/DUDA/)]
 [[Pretrained models](https://huggingface.co/ses7720/DUDA)]
